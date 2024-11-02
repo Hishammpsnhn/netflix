@@ -19,8 +19,8 @@ const Banner = () => {
           {/* Language Selection */}
           <button className="flex items-center border border-gray-400 text-white text-sm px-3 py-1 rounded-md">
             <select className="bg-transparent outline-none text-white">
-              <option>English</option>
-              <option>हिन्दी</option>
+              <option className="text-black">English</option>
+              <option className="text-black">हिन्दी</option>
             </select>
           </button>
 
@@ -57,7 +57,7 @@ const Banner = () => {
             <input
               type="email"
               placeholder="Email address"
-              className="px-4 py-2 md:py-3 text-black rounded-l-md border-none outline-none w-64 md:w-80"
+              className="px-4 py-2 md:py-3 bg-black opacity-70 text-white rounded-l-md border border-gray-600 outline-none w-64 md:w-80"
             />
             <button className="flex items-center bg-red-600 hover:bg-red-700 text-white font-medium py-2 md:py-3 px-4 rounded-r-md">
               Get Started
