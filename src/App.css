@@ -4,3 +4,12 @@
   background-size: cover;
   background-position: center;
 }
+.banner-background{
+  background-image: url('./assets/VAL_203_Unit_00436RC.webp');
+  background-size: cover;
+  background-position: center;
+  
+}
+body{
+  background-color: black;
+}

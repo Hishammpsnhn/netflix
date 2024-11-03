@@ -1,36 +1,16 @@
 import React from "react";
 import "../App.css";
-
+import { useNavigate } from "react-router-dom";
+import Header from "./Header";
 const Banner = () => {
+  const navigate = useNavigate();
   return (
     <div className="relative h-screen bg-gray-800 overflow-hidden background-image">
-      {/* Gradient Overlay */}
+      {/* Gradient Overlay-black */}
       <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-70"></div>
       {/* Header */}
-      <header className="z-10 flex justify-between items-center px-40 py-6 text-white bg-transparent relative">
-        <svg
-          className="w-36 h-10 fill-current text-red-600"
-          viewBox="0 0 111 30"
-        >
-          {/* SVG content goes here */}
-        </svg>
 
-        <div className="flex items-center space-x-4">
-          {/* Language Selection */}
-          <button className="flex items-center border border-gray-400 text-white text-sm px-3 py-1 rounded-md">
-            <select className="bg-transparent outline-none text-white">
-              <option className="text-black">English</option>
-              <option className="text-black">हिन्दी</option>
-            </select>
-          </button>
-
-          {/* Sign In Button */}
-          <button className="bg-red-600 hover:bg-red-700 text-white text-sm font-medium px-3 py-1 rounded-md">
-            Sign In
-          </button>
-        </div>
-      </header>
-
+      <Header btn={true} />
       {/* Hero Section */}
       <div
         className="relative h-full flex items-center justify-center bg-cover bg-center"

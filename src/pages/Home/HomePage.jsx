@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ThumbnailCard from "../../components/ThumbnailCard";
 import MovieBanner from "../../components/MovieBanner";
+import Header from "../../components/Header";
+import Img2 from "../../assets/VAL_203_Unit_00436RC.webp";
 
 const HomePage = () => {
   const thumbnailData = [
@@ -36,50 +38,57 @@ const HomePage = () => {
     },
     // Add more items here...
   ];
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    fetch(
+      "https://api.themoviedb.org/3/search/movie?api_key=f2471c97322f5bfdb488b81a07327c70&query=car"
+    )
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setMovies(data.results);
+      })
+      .catch((error) => {
+        console.error("There was a problem with the fetch operation:", error);
+      });
+  }, []);
 
   return (
     <div className="bg-black text-white ">
-      <header className="z-10 flex justify-between items-center px-40 py-6 text-white bg-transparent absolute w-full">
-        <svg
-          className="w-36 h-10 fill-current text-red-600"
-          viewBox="0 0 111 30"
-        >
-          {/* SVG content goes here */}
-        </svg>
-
-        <div className="flex items-center space-x-4">
-          {/* Language Selection */}
-          <button className="flex items-center border border-gray-400 text-white text-sm px-3 py-1 rounded-md">
-            <select className="bg-transparent outline-none text-white">
-              <option>English</option>
-              <option>हिन्दी</option>
-            </select>
-          </button>
-
-          {/* Sign In Button */}
-          <button className="bg-red-600 hover:bg-red-700 text-white text-sm font-medium px-3 py-1 rounded-md">
-            Sign In
-          </button>
-        </div>
-      </header>
+      <Header />
       <MovieBanner
-        backgroundImage={
-          "https://imgs.search.brave.com/rCf92gNCbk0_2jF58FDDYNiAcXX2-cnMGZg0i27ljX4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL00v/TVY1Qk1EQXhabVJq/TVdNdE5XVm1aUzAw/TW1JM0xXSmhOekl0/TnpSa1kyTXdZbVpr/WkdFeFhrRXlYa0Zx/Y0djQC5qcGc"
-        }
+        backgroundImage={Img2}
         title={"title"}
         description={
           "lorem ipsum dolor sit amet, consectetur adip ex ea commod i minus inter "
         }
       />
-      <h4>Popular</h4>
-      <div className="m-20 mb-0 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {thumbnailData.map((thumbnail, index) => (
-          <ThumbnailCard
-            key={index}
-            imageUrl={thumbnail.imageUrl}
-            title={thumbnail.title}
-          />
-        ))}
+      <div className="relative top-72">
+        <div className=" m-20 mb-0 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
+          {movies.map((thumbnail, index) => (
+            <ThumbnailCard
+              key={index}
+              imageUrl={`https://image.tmdb.org/t/p/w500${thumbnail.poster_path}`}
+              title={thumbnail.title}
+            />
+          ))}
+        </div>
+        <h1 className="mx-28 font-semibold text-4xl my-0">POPULAR</h1>
+        <div className=" mx-20 mb-0 mt-9 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
+          {thumbnailData.map((thumbnail, index) => (
+            <ThumbnailCard
+              key={index}
+              imageUrl={thumbnail.imageUrl}
+              title={thumbnail.title}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
