@@ -1,26 +1,38 @@
 import React, { useEffect, useRef, useState } from "react";
 import Header from "../../components/Header";
 import { useLocation, useNavigate } from "react-router-dom";
+import { validateEmail, validatePassword } from "../../utils/validation";
 
 const Signup = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { email } = location.state;
   const PassInputref = useRef();
-  useEffect(() => {
-    if (PassInputref.current) {
-      PassInputref.current.focus();
-    }
-  }, []);
 
   const [passWord, setPassword] = useState("");
-  const handleSubmit = () => {};
+  const [error, setError] = useState(null);
+
+  const handleSubmit = (e) => {
+    // const EmailError = validateEmail(email);
+    e.preventDefault();
+    const passError = validatePassword(passWord);
+    if (passError) {
+      setError(passError);
+      return;
+    }
+  };
 
   useEffect(() => {
     if (!email) {
       navigate("/");
     }
   }, [email]);
+
+  useEffect(() => {
+    if (PassInputref.current) {
+      PassInputref.current.focus();
+    }
+  }, []);
   return (
     <div className=" items-center justify-center min-h-screen bg-white">
       {/* Login Form */}
@@ -32,12 +44,13 @@ const Signup = () => {
           Create a password to start your membership
         </h2>
         <p>Just a few more steps and you're done! We hate paperwork, too.</p>
-        <form className="space-y-6" onSubmit={handleSubmit}>
+        <form className="space-y-6" onSubmit={handleSubmit} noValidate>
           {/* Email Input */}
           <div>
             <input
               type="email"
-              value={email}
+              defaultValue={email}
+              disabled
               id="email"
               placeholder="Enter your email"
               className="w-full px-4 py-4 mt-2 border border-black focus:border-blue-600 focus:outline-none"
@@ -51,14 +64,17 @@ const Signup = () => {
               type="password"
               ref={PassInputref}
               value={passWord}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setError(null);
+                setPassword(e.target.value);
+              }}
               id="password"
               placeholder="Enter your password"
               className="w-full px-4 py-4 mt-2 border border-black focus:border-blue-600 focus:outline-none"
               required
             />
           </div>
-
+          {error && <p className="text-red-600">{error}</p>}
           {/* Submit Button */}
           <button
             type="submit"

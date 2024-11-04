@@ -2,9 +2,21 @@ import React, { useState } from "react";
 import "../../App.css";
 import { useNavigate } from "react-router-dom";
 import Header from "../Header";
+import { validateEmail } from "../../utils/validation";
 const Banner = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
+  const [err, setError] = useState(null);
+  const handleSubmit = () => {
+    console.log(email);
+    let errMsg = validateEmail(email);
+    if (errMsg) {
+      setError(errMsg);
+      return;
+    }
+    navigate(`/signup/registration`, { state: { email } });
+  };
+
   return (
     <div className="relative h-screen bg-gray-800 overflow-hidden background-image">
       {/* Gradient Overlay-black */}
@@ -36,6 +48,7 @@ const Banner = () => {
           {/* Email Input and Get Started Button */}
           <div className="flex justify-center">
             <input
+            
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -44,13 +57,12 @@ const Banner = () => {
             />
             <button
               className="flex items-center bg-red-600 hover:bg-red-700 text-white font-medium py-2 md:py-3 px-4 rounded-r-md"
-              onClick={() =>
-                navigate("/signup/registration", { state: { email } })
-              }
+              onClick={handleSubmit}
             >
               Get Started
             </button>
           </div>
+          {err && <p className="text-red-600">{err}</p>}
         </div>
       </div>
     </div>
