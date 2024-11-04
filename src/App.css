@@ -10,6 +10,12 @@
   background-position: center;
   
 }
+.signup-device-background{
+  background-image: url('./assets/Devices.png');
+  background-size: cover;
+  background-position: center;
+  
+}
 body{
   background-color: black;
 }

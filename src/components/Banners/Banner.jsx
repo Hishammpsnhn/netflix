@@ -1,9 +1,10 @@
-import React from "react";
-import "../App.css";
+import React, { useState } from "react";
+import "../../App.css";
 import { useNavigate } from "react-router-dom";
-import Header from "./Header";
+import Header from "../Header";
 const Banner = () => {
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
   return (
     <div className="relative h-screen bg-gray-800 overflow-hidden background-image">
       {/* Gradient Overlay-black */}
@@ -36,10 +37,17 @@ const Banner = () => {
           <div className="flex justify-center">
             <input
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Email address"
               className="px-4 py-2 md:py-3 bg-black opacity-70 text-white rounded-l-md border border-gray-600 outline-none w-64 md:w-80"
             />
-            <button className="flex items-center bg-red-600 hover:bg-red-700 text-white font-medium py-2 md:py-3 px-4 rounded-r-md">
+            <button
+              className="flex items-center bg-red-600 hover:bg-red-700 text-white font-medium py-2 md:py-3 px-4 rounded-r-md"
+              onClick={() =>
+                navigate("/signup/registration", { state: { email } })
+              }
+            >
               Get Started
             </button>
           </div>
