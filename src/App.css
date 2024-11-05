@@ -16,6 +16,12 @@
   background-position: center;
   
 }
+.profile-background{
+  background-image: url('./assets/profile.webp');
+  background-size: cover;
+  background-position: center;
+  
+}
 body{
   background-color: black;
 }

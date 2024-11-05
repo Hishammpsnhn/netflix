@@ -3,10 +3,17 @@ import "../../App.css";
 import Header from "../../components/Header";
 import { auth } from "../../config/firebase";
 import { validateEmail, validatePassword } from "../../utils/validation";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  browserLocalPersistence,
+  onAuthStateChanged,
+  setPersistence,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("hishammpnsn@gamil.com");
+  const [password, setPassword] = useState("9656753610");
   const [ServerErr, setServerErr] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -25,17 +32,12 @@ const Login = () => {
     console.log(auth, email, password);
     try {
       setLoading(true);
+    //  await setPersistence(auth, browserLocalPersistence);
       const res = await signInWithEmailAndPassword(auth, email, password);
       const user = res.user;
       console.log(user);
-      // const userInfo: UserInfo = {
-      //   email: user.email || "",
-      //   name: user.displayName || "",
-      //   phone: user.phoneNumber || "",
-      // };
-      // setCurrentUser(userInfo);
-      // localStorage.setItem("userInfo", JSON.stringify(userInfo));
-      // navigate("/");
+      localStorage.setItem("userInfoNet", JSON.stringify(user));
+      navigate("/home");
     } catch (error) {
       console.error("Error signing in:", error);
       setServerErr("Invalid email or password");
@@ -48,6 +50,12 @@ const Login = () => {
     SetError({ emailErr: null, passwordErr: null });
     setServerErr(null);
   }, [email, password]);
+  useEffect(() => {
+    const user = localStorage.getItem("userInfoNet");
+    if(user){
+      navigate('/home')
+    }
+  }, [navigate]);
   return (
     <div className=" items-center justify-center min-h-screen background-image ">
       {/* Background Overlay */}

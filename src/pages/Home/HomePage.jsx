@@ -3,41 +3,11 @@ import ThumbnailCard from "../../components/ThumbnailCard";
 import MovieBanner from "../../components/MovieBanner";
 import Header from "../../components/Header";
 import Img2 from "../../assets/VAL_203_Unit_00436RC.webp";
-
+import { useNavigate } from "react-router-dom";
+import {thumbnailData} from '../../utils/MockData'
 const HomePage = () => {
-  const thumbnailData = [
-    {
-      imageUrl:
-        "https://imgs.search.brave.com/-M_Q3vnxARIyOPunjS6BOQZTpWF5xOueLFrBkksKOuY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMxLnNyY2RuLmNv/bS93b3JkcHJlc3Mv/d3AtY29udGVudC91/cGxvYWRzL3RyYWls/ZXJzL2VwaXNvZGVf/cG9zdGVyLzQ1NzQ3/X1N0cmFuZ2VyJTIw/VGhpbmdzJTIwMi5q/cGc",
-      title: "Title 1",
-    },
-    {
-      imageUrl:
-        "https://imgs.search.brave.com/-M_Q3vnxARIyOPunjS6BOQZTpWF5xOueLFrBkksKOuY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMxLnNyY2RuLmNv/bS93b3JkcHJlc3Mv/d3AtY29udGVudC91/cGxvYWRzL3RyYWls/ZXJzL2VwaXNvZGVf/cG9zdGVyLzQ1NzQ3/X1N0cmFuZ2VyJTIw/VGhpbmdzJTIwMi5q/cGc",
-      title: "Title 2",
-    },
-    {
-      imageUrl:
-        "https://imgs.search.brave.com/-M_Q3vnxARIyOPunjS6BOQZTpWF5xOueLFrBkksKOuY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMxLnNyY2RuLmNv/bS93b3JkcHJlc3Mv/d3AtY29udGVudC91/cGxvYWRzL3RyYWls/ZXJzL2VwaXNvZGVf/cG9zdGVyLzQ1NzQ3/X1N0cmFuZ2VyJTIw/VGhpbmdzJTIwMi5q/cGc",
-      title: "Title 2",
-    },
-    {
-      imageUrl:
-        "https://imgs.search.brave.com/-M_Q3vnxARIyOPunjS6BOQZTpWF5xOueLFrBkksKOuY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMxLnNyY2RuLmNv/bS93b3JkcHJlc3Mv/d3AtY29udGVudC91/cGxvYWRzL3RyYWls/ZXJzL2VwaXNvZGVf/cG9zdGVyLzQ1NzQ3/X1N0cmFuZ2VyJTIw/VGhpbmdzJTIwMi5q/cGc",
-      title: "Title 2",
-    },
-    {
-      imageUrl:
-        "https://imgs.search.brave.com/-M_Q3vnxARIyOPunjS6BOQZTpWF5xOueLFrBkksKOuY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMxLnNyY2RuLmNv/bS93b3JkcHJlc3Mv/d3AtY29udGVudC91/cGxvYWRzL3RyYWls/ZXJzL2VwaXNvZGVf/cG9zdGVyLzQ1NzQ3/X1N0cmFuZ2VyJTIw/VGhpbmdzJTIwMi5q/cGc",
-      title: "Title 2",
-    },
-    {
-      imageUrl:
-        "https://imgs.search.brave.com/-M_Q3vnxARIyOPunjS6BOQZTpWF5xOueLFrBkksKOuY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMxLnNyY2RuLmNv/bS93b3JkcHJlc3Mv/d3AtY29udGVudC91/cGxvYWRzL3RyYWls/ZXJzL2VwaXNvZGVf/cG9zdGVyLzQ1NzQ3/X1N0cmFuZ2VyJTIw/VGhpbmdzJTIwMi5q/cGc",
-      title: "Title 2",
-    },
-    // Add more items here...
-  ];
+  const navigate = useNavigate();
+
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
@@ -58,6 +28,13 @@ const HomePage = () => {
         console.error("There was a problem with the fetch operation:", error);
       });
   }, []);
+
+  useEffect(() => {
+    const user = localStorage.getItem("userInfoNet");
+    if (!user) {
+      navigate("/");
+    }
+  }, [navigate]);
 
   return (
     <div className="bg-black text-white ">
